@@ -1,3 +1,8 @@
 name: BlackHoleCraft
 version: ${project.version}
 main: net.kunmc.lab.blackholecraft.BlackHoleCraft
+commands:
+  blackHole:
+    description: BlackHoleCraft.
+    usage: /<blackHole>
+    permission: op
