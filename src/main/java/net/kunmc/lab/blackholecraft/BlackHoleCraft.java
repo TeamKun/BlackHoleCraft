@@ -65,6 +65,7 @@ public final class BlackHoleCraft extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        getServer().getWorlds().forEach(world -> world.getEntities().forEach(entity -> entity.setGravity(true)));
     }
 
     private void blackHoleTask() {
