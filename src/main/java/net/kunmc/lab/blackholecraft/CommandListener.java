@@ -17,6 +17,7 @@ public class CommandListener implements TabExecutor {
     public CommandListener() {
         Bukkit.getPluginCommand("blackHole").setExecutor(this);
         Bukkit.getPluginCommand("blackHole").setExecutor(this);
+        speeds.add(String.valueOf(0.05));
         for(double i = 0.1; i < 5; i += 0.1) {
             String speed = String.valueOf(i);
             if(speed.length() >= 3) {

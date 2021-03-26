@@ -16,7 +16,7 @@ public final class BlackHoleCraft extends JavaPlugin {
 
     private UUID blackHoleId;
     private boolean isEnable = true;
-    private double speed = 0.1;
+    private double speed = 0.05;
     private boolean isIncludePlayer = false;
 
     public void setBlackHole(UUID blackHoleId) {
@@ -71,22 +71,28 @@ public final class BlackHoleCraft extends JavaPlugin {
         getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
-                if (!isEnable || blackHoleId == null) {
+                if(blackHoleId == null) {
                     return;
                 }
-                Player blackHole = getServer().getPlayer(blackHoleId);
-                if(!isValid(blackHole)) {
-                    return;
-                }
-                blackHole.getWorld().getEntities().forEach(entity -> {
-                    if(entity instanceof Player) {
-                        if(!isIncludePlayer || entity.getUniqueId().equals(blackHoleId)) {
+                getServer().getWorlds().forEach(world -> {
+                    world.getEntities().forEach(entity -> {
+                        entity.setGravity(true);
+                        if (!isEnable || blackHoleId == null) {
                             return;
                         }
-                    }
-                    if(isValid(blackHole)) {
-                        pullEntity(blackHole, entity);
-                    }
+                        Player blackHole = getServer().getPlayer(blackHoleId);
+                        if(!isValid(blackHole)) {
+                            return;
+                        }
+                        if(entity instanceof Player) {
+                            if(!isIncludePlayer || entity.getUniqueId().equals(blackHoleId)) {
+                                return;
+                            }
+                        }
+                        if(isValid(blackHole)) {
+                            pullEntity(blackHole, entity);
+                        }
+                    });
                 });
             }
         },0L,2L);
@@ -114,6 +120,7 @@ public final class BlackHoleCraft extends JavaPlugin {
         } catch (IllegalArgumentException e) {
             return;
         }
+        entity.setGravity(false);
         entity.setVelocity(entity.getVelocity().add(velocity));
     }
 }
