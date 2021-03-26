@@ -1,0 +1,3 @@
+name: BlackHoleCraft
+version: ${project.version}
+main: net.kunmc.lab.blackholecraft.BlackHoleCraft
