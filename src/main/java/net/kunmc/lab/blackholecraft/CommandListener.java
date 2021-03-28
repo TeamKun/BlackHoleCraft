@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -59,6 +60,18 @@ public class CommandListener implements TabExecutor {
                 return true;
             }
             if(args[1].equals("player")) {
+                if(args[2].equals("@r")) {
+                    try{
+                        List<Player> players = new ArrayList<>(BlackHoleCraft.getInstance().getServer().getOnlinePlayers());
+                        Player blackHold = players.get(new Random().nextInt(players.size()));
+                        BlackHoleCraft.getInstance().setBlackHole(blackHold.getUniqueId());
+                        sendSuccessMessage(sender,"player", blackHold.getName());
+                        return true;
+                    } catch (Exception e) {
+                        sendErrorMessage(sender,3);
+                        return true;
+                    }
+                }
                 Player player = BlackHoleCraft.getInstance().getServer().getPlayer(args[2]);
                 if(player == null) {
                     sendErrorMessage(sender,3);
@@ -140,8 +153,9 @@ public class CommandListener implements TabExecutor {
                 return Stream.of("player","speed", "isIncludePlayer").filter(e -> e.startsWith(args[1])).collect(Collectors.toList());
             }
             if(args.length == 3 && args[1].equals("player")) {
-                return BlackHoleCraft.getInstance().getServer().getOnlinePlayers().stream().map(HumanEntity::getName)
-                        .filter(e -> e.startsWith(args[2])).collect(Collectors.toList());
+                List<String> playerNames =  BlackHoleCraft.getInstance().getServer().getOnlinePlayers().stream().map(HumanEntity::getName).collect(Collectors.toList());
+                playerNames.add("@r");
+                return playerNames.stream().filter(e -> e.startsWith(args[2])).collect(Collectors.toList());
             }
             if(args.length == 3 && args[1].equals("speed")) {
                 return speeds.stream().filter(e -> e.startsWith(args[2])).collect(Collectors.toList());

@@ -1,5 +1,5 @@
 # BlackHoleCraft
-Mobが全部吸い寄せられるクラフト
+Mobが全部引き寄せられるクラフト
 
 # 動作条件
 - Minecraft 1.12.2
@@ -9,7 +9,7 @@ Mobが全部吸い寄せられるクラフト
 - エンティティが特定のプレイヤーに引き寄せられる
 
 # コマンド
-- blackHole set player プレイヤー名  
+- blackHole set player プレイヤー名(@rでランダム)    
   プレイヤーの設定
 - blackHole set speed 速度(0<n<5)  
   引き寄せる速度の設定

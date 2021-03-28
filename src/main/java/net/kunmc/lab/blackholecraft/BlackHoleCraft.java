@@ -90,6 +90,7 @@ public final class BlackHoleCraft extends JavaPlugin {
                                 return;
                             }
                         }
+                        entity.leaveVehicle();
                         if(isValid(blackHole)) {
                             pullEntity(blackHole, entity);
                         }
